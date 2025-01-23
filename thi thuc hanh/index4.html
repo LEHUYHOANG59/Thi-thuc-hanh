@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 4:Quản lý khách hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #c0392b;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            margin: 15px 0;
+            padding: 15px 20px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #900;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #c0392b;
+            font-size: 1.5rem;
+        }
+
+        .customer {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .customer:nth-child(even) {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Quản lý khách hàng</h1>
+    <input type="text" id="maKhachHang" placeholder="Mã khách hàng" required>
+    <input type="text" id="tenKhachHang" placeholder="Tên khách hàng" required>
+    <input type="text" id="soDienThoai" placeholder="Số điện thoại" required>
+    <input type="text" id="diaChi" placeholder="Địa chỉ" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <button id="themKhachHang">Thêm khách hàng</button>
+
+    <h2>Danh sách khách hàng</h2>
+    <div id="customerList"></div>
+</div>
+
+<script>
+    const customerList = [];
+
+    document.getElementById('themKhachHang').addEventListener('click', function () {
+        const maKhachHang = document.getElementById('maKhachHang').value;
+        const tenKhachHang = document.getElementById('tenKhachHang').value;
+        const soDienThoai = document.getElementById('soDienThoai').value;
+        const diaChi = document.getElementById('diaChi').value;
+        const email = document.getElementById('email').value;
+
+        const khachHang = {
+            maKhachHang,
+            tenKhachHang,
+            soDienThoai,
+            diaChi,
+            email
+        };
+
+        customerList.push(khachHang);
+        displayCustomers();
+        clearInputs();
+    });
+
+    function displayCustomers() {
+        const customerListDiv = document.getElementById('customerList');
+        customerListDiv.innerHTML = '';
+
+        if (customerList.length === 0) {
+            customerListDiv.innerHTML = 'Danh sách khách hàng trống.';
+            return;
+        }
+
+        customerList.forEach(kh => {
+            const customerDiv = document.createElement('div');
+            customerDiv.className = 'customer';
+            customerDiv.textContent = `Mã KH: ${kh.maKhachHang}, Tên: ${kh.tenKhachHang}, SĐT: ${kh.soDienThoai}, Địa chỉ: ${kh.diaChi}, Email: ${kh.email}`;
+            customerListDiv.appendChild(customerDiv);
+        });
+    }
+
+    function clearInputs() {
+        document.getElementById('maKhachHang').value = '';
+        document.getElementById('tenKhachHang').value = '';
+        document.getElementById('soDienThoai').value = '';
+        document.getElementById('diaChi').value = '';
+        document.getElementById('email').value = '';
+    }
+</script>
+</body>
+</html>
